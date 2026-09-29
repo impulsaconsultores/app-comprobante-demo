@@ -58,7 +58,7 @@
       position:relative;
       z-index:2;
     }
-    .wordmark{font-size:30px;font-weight:900;letter-spacing:-.05em;color:#26324a}.wordmark span{color:#2386ee}
+    .wordmark{display:flex;align-items:center;gap:9px;font-size:29px;font-weight:900;letter-spacing:-.055em;color:#24324a}.mark{width:29px;height:29px;display:grid;place-items:center;transform:rotate(45deg)}.mark i{display:block;width:20px;height:20px;background:linear-gradient(135deg,#ef6b7b 0 50%,#2386ee 50%);clip-path:polygon(0 0,100% 50%,0 100%);transform:rotate(-45deg)}.wordmark span{color:#2386ee}
     
     .screen{padding:0 22px 28px}.hidden{display:none!important}
     .login-card{
@@ -233,7 +233,7 @@
   <section id="login" class="screen">
     <div class="top">
       <div class="brand">
-        <div class="wordmark">Cuenta<span>.</span></div>
+        <div class="wordmark"><span class="mark"><i></i></span>Cuenta<span>.</span></div>
 
       </div>
     </div>
