@@ -1,336 +1,45 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f7a3ad">
-  <meta name="description" content="Portal de consulta de estado de cuenta">
-  <link rel="manifest" href="manifest.json">
-  <title>Portal de cuenta</title>
-  <style>
-    *{box-sizing:border-box}
-    :root{
-      --ink:#17203b;
-      --muted:#66708a;
-      --line:#e8ebf2;
-      --blue:#4d9bf5;
-      --blue2:#2f83ee;
-      --pink:#f7a3ad;
-      --pink2:#ffd8d8;
-      --bg:#f5f7fb;
-    }
-    body{
-      margin:0;
-      background:var(--bg);
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;
-      color:var(--ink);
-      -webkit-font-smoothing:antialiased;
-    }
-    .app{
-      max-width:430px;
-      min-height:100vh;
-      margin:auto;
-      background:#fff;
-      overflow:hidden;
-      position:relative;
-    }
-    .top{
-      min-height:225px;
-      padding:34px 24px 26px;
-      background:linear-gradient(155deg,#ffd6d9 0%,#f7a3ad 52%,#f8c4c8 100%);
-      position:relative;
-    }
-    .top:after{
-      content:"";
-      position:absolute;
-      left:-20%;
-      right:-20%;
-      bottom:-65px;
-      height:120px;
-      background:rgba(255,255,255,.42);
-      border-radius:50% 50% 0 0;
-      transform:rotate(-3deg);
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      position:relative;
-      z-index:2;
-    }
-    .wordmark{display:flex;align-items:center;gap:9px;font-size:29px;font-weight:850;letter-spacing:-.045em;color:#6b6f76}.brand-logo{width:48px;height:48px;object-fit:contain;border-radius:11px}.wordmark strong{color:#6b6f76;font-weight:800}.wifi{background:linear-gradient(90deg,#ef6b7b 0%,#f4b23f 35%,#2386ee 70%,#7a4de8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:850}
-    
-    .screen{padding:0 22px 28px}.hidden{display:none!important}
-    .login-card{
-      position:relative;
-      z-index:3;
-      margin-top:-38px;
-      background:rgba(255,255,255,.97);
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:28px;
-      padding:25px 22px 28px;
-      box-shadow:0 14px 35px rgba(34,43,70,.10);
-    }
-    h1{
-      font-size:30px;
-      line-height:1.08;
-      margin:0 0 9px;
-      letter-spacing:-.03em;
-    }
-    .muted{color:var(--muted);font-size:15px;line-height:1.45}
-    label{
-      display:block;
-      font-size:13px;
-      font-weight:750;
-      margin:21px 0 8px;
-    }
-    input{
-      width:100%;
-      padding:15px 16px;
-      border:1px solid #dce1eb;
-      border-radius:15px;
-      font-size:16px;
-      color:var(--ink);
-      background:#fff;
-      outline:none;
-    }
-    input:focus{border-color:var(--blue)}
-    .btn{
-      width:100%;
-      border:0;
-      border-radius:15px;
-      padding:15px 16px;
-      font-size:15px;
-      font-weight:800;
-      cursor:pointer;
-      margin-top:18px;
-      text-decoration:none;
-      text-align:center;
-      display:block;
-      font-family:inherit;
-    }
-    .primary{
-      background:linear-gradient(180deg,var(--blue),var(--blue2));
-      color:#fff;
-      box-shadow:0 8px 18px rgba(47,131,238,.20);
-    }
-    .secondary{
-      background:#fff;
-      color:#2379e6;
-      border:1.5px solid #398cf2;
-    }
-    .home-top{
-      text-align:center;
-      padding-top:30px;
-    }
-    .avatar{
-      width:92px;
-      height:92px;
-      margin:0 auto 14px;
-      border-radius:50%;
-      background:linear-gradient(145deg,#fff,#eef4ff);
-      border:4px solid #fff;
-      box-shadow:0 8px 24px rgba(35,50,90,.15);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-    }
-    .avatar svg{width:64px;height:64px}
-    .name{
-      font-size:26px;
-      font-weight:850;
-      letter-spacing:-.03em;
-      margin:0;
-    }
-    .account{
-      margin:5px 0 0;
-      color:var(--muted);
-      font-size:15px;
-    }
-    .card{
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:18px;
-      margin-top:16px;
-      background:#fff;
-      box-shadow:0 5px 16px rgba(25,38,65,.04);
-    }
-    .status{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      color:#159447;
-      font-weight:800;
-      font-size:16px;
-    }
-    .dot{
-      width:11px;height:11px;border-radius:50%;background:#19a855;
-    }
-    .amount{
-      font-size:39px;
-      line-height:1;
-      font-weight:900;
-      letter-spacing:-.04em;
-      margin:8px 0 9px;
-    }
-    .menu-btn{
-      margin-top:16px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px;
-      background:#fff;
-      color:var(--ink);
-      font-size:16px;
-      font-weight:800;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      width:100%;
-      cursor:pointer;
-      font-family:inherit;
-      box-shadow:0 5px 16px rgba(25,38,65,.04);
-    }
-    .menu-left{display:flex;align-items:center;gap:13px}
-    .icon{
-      width:25px;height:25px;color:#327fe8;flex:none;
-    }
-    .back{
-      background:transparent;
-      border:0;
-      padding:26px 0 0;
-      color:var(--muted);
-      font-weight:700;
-      font-size:15px;
-      cursor:pointer;
-      font-family:inherit;
-    }
-    .bill-title{margin-top:18px}
-    .pill{
-      display:inline-block;
-      background:#dcf7e8;
-      color:#159447;
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:850;
-    }
-    .row{
-      display:flex;
-      justify-content:space-between;
-      gap:15px;
-      padding:12px 0;
-      border-bottom:1px solid #eef0f4;
-      font-size:14px;
-    }
-    .row:last-child{border:0}
-    .row b{text-align:right}
-    .actions{margin-top:4px}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7a3ad">
+<meta name="description" content="Portal de cuenta">
+<link rel="manifest" href="manifest.json">
+<title>TotalApp</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;color:#17203b;-webkit-font-smoothing:antialiased}.app{max-width:430px;min-height:100vh;margin:auto;background:#fff;overflow:hidden}.hidden{display:none!important}.top{min-height:225px;padding:28px 24px;background:linear-gradient(155deg,#ffd6d9,#f7a3ad 52%,#f8c4c8);position:relative}.top:after{content:"";position:absolute;left:-20%;right:-20%;bottom:-65px;height:120px;background:rgba(255,255,255,.42);border-radius:50%;transform:rotate(-3deg)}.brand{position:relative;z-index:2}.brand img{width:230px;height:auto;display:block}.screen{padding:0 22px 28px}.login-card{position:relative;z-index:3;margin-top:-38px;background:#fff;border-radius:28px;padding:25px 22px 28px;box-shadow:0 14px 35px rgba(34,43,70,.10)}h1{font-size:30px;line-height:1.08;margin:0 0 9px;letter-spacing:-.03em}.muted{color:#66708a;font-size:15px;line-height:1.45}label{display:block;font-size:13px;font-weight:750;margin:21px 0 8px}input{width:100%;padding:15px 16px;border:1px solid #dce1eb;border-radius:15px;font-size:16px;color:#17203b;background:#fff;outline:none}.btn{width:100%;border:0;border-radius:15px;padding:15px 16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:18px;text-decoration:none;text-align:center;display:block;font-family:inherit}.primary{background:linear-gradient(180deg,#4d9bf5,#2f83ee);color:#fff;box-shadow:0 8px 18px rgba(47,131,238,.20)}.home-top{text-align:center;padding-top:30px}.avatar{width:92px;height:92px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(145deg,#fff,#eef4ff);border:4px solid #fff;box-shadow:0 8px 24px rgba(35,50,90,.15);display:grid;place-items:center;overflow:hidden}.avatar svg{width:64px;height:64px}.name{font-size:26px;font-weight:850;letter-spacing:-.03em;margin:0}.account{margin:5px 0 0;color:#66708a;font-size:15px}.card{border:1px solid #e8ebf2;border-radius:20px;padding:18px;margin-top:16px;background:#fff;box-shadow:0 5px 16px rgba(25,38,65,.04)}.status{display:flex;align-items:center;gap:9px;color:#159447;font-weight:800;font-size:16px}.dot{width:11px;height:11px;border-radius:50%;background:#19a855}.amount{font-size:39px;line-height:1;font-weight:900;letter-spacing:-.04em;margin:8px 0 9px}.menu-btn{margin-top:16px;border:1px solid #e8ebf2;border-radius:18px;padding:18px;background:#fff;color:#17203b;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;font-family:inherit;box-shadow:0 5px 16px rgba(25,38,65,.04)}.menu-left{display:flex;align-items:center;gap:13px}.icon{width:25px;height:25px;color:#327fe8}.back{background:transparent;border:0;padding:26px 0 0;color:#66708a;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}.bill-title{margin-top:18px}.pill{display:inline-block;background:#dcf7e8;color:#159447;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:850}.row{display:flex;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid #eef0f4;font-size:14px}.row:last-child{border:0}.row b{text-align:right}.secondary{background:#fff;color:#2379e6;border:1.5px solid #398cf2}
+</style>
 </head>
-<body>
-<div class="app">
+<body><div class="app">
+<section id="login" class="screen">
+<div class="top"><div class="brand"><img src="logo-totalapp.webp" alt="TotalApp"></div></div>
+<div class="login-card">
+<h1>Bienvenido</h1><p class="muted">Consulta tu cuenta y estado de servicio.</p>
+<label>Número de cuenta</label><input value="0140204008" inputmode="numeric" autocomplete="username">
+<label>Contraseña</label><input type="password" value="demo1234" autocomplete="current-password">
+<button class="btn primary" onclick="show('home')">Iniciar sesión</button>
+</div></section>
 
-  <section id="login" class="screen">
-    <div class="top">
-      <div class="brand">
-        <div class="wordmark"><img src="icon-192.png" alt="Logo" class="brand-logo"><strong>Total <span class="wifi">WiFi</span></strong></div>
+<section id="home" class="screen hidden">
+<div class="top" style="margin:0 -22px;padding-left:22px"><div class="brand"><img src="logo-totalapp.webp" alt="TotalApp"></div></div>
+<div class="home-top">
+<div class="avatar" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="34" fill="#DCEBFF"/><circle cx="40" cy="31" r="13" fill="#6D86A8"/><path d="M18 66c3-13 12-20 22-20s19 7 22 20" fill="#6D86A8"/><circle cx="35" cy="29" r="2" fill="#fff"/><circle cx="45" cy="29" r="2" fill="#fff"/><path d="M34 36c4 3 8 3 12 0" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+<h1 class="name">Juan Pérez López</h1><p class="account">Cta 0140204008</p></div>
+<div class="card"><div class="status"><span class="dot"></span>Servicio activo</div><p class="muted" style="margin:7px 0 0">Cuenta al corriente</p></div>
+<div class="card"><div class="muted">Estado de cuenta</div><div class="amount">$649.00</div><div class="muted">Septiembre 2026</div></div>
+<button class="menu-btn" onclick="show('bill')"><span class="menu-left"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>Ver estado de cuenta</span><span>›</span></button>
+</section>
 
-      </div>
-    </div>
-
-    <div class="login-card">
-      <h1>Bienvenido</h1>
-      <p class="muted">Consulta tu cuenta y estado de servicio.</p>
-
-      <label>Número de cuenta</label>
-      <input value="0140204008" inputmode="numeric" autocomplete="username">
-
-      <label>Contraseña</label>
-      <input type="password" value="demo1234" autocomplete="current-password">
-
-      <button class="btn primary" onclick="show('home')">Iniciar sesión</button>
-    </div>
-  </section>
-
-  <section id="home" class="screen hidden">
-    <div class="top" style="margin:0 -22px;padding-left:22px;padding-right:22px">
-      <div class="brand">
-        <div class="wordmark"><img src="icon-192.png" alt="Logo" class="brand-logo"><strong>Total</strong></div>
-        
-      </div>
-    </div>
-
-    <div class="home-top">
-      <div class="avatar" aria-hidden="true">
-        <svg viewBox="0 0 80 80" fill="none">
-          <circle cx="40" cy="40" r="34" fill="#DCEBFF"/>
-          <circle cx="40" cy="31" r="13" fill="#6D86A8"/>
-          <path d="M18 66c3-13 12-20 22-20s19 7 22 20" fill="#6D86A8"/>
-          <circle cx="35" cy="29" r="2" fill="#fff"/>
-          <circle cx="45" cy="29" r="2" fill="#fff"/>
-          <path d="M34 36c4 3 8 3 12 0" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h1 class="name">Juan Pérez López</h1>
-      <p class="account">Cta 0140204008</p>
-    </div>
-
-    <div class="card">
-      <div class="status"><span class="dot"></span>Servicio activo</div>
-      <p class="muted" style="margin:7px 0 0">Cuenta al corriente</p>
-    </div>
-
-    <div class="card">
-      <div class="muted">Estado de cuenta</div>
-      <div class="amount">$649.00</div>
-      <div class="muted">Septiembre 2026</div>
-    </div>
-
-    <button class="menu-btn" onclick="show('bill')">
-      <span class="menu-left">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/>
-        </svg>
-        Ver estado de cuenta
-      </span>
-      <span>›</span>
-    </button>
-  </section>
-
-  <section id="bill" class="screen hidden">
-    <button class="back" onclick="show('home')">‹ &nbsp;Regresar</button>
-    <h1 class="bill-title">Estado de cuenta</h1>
-    <p class="muted">Septiembre 2026</p>
-
-    <div class="card">
-      <span class="pill">PAGADO</span>
-      <p class="muted" style="margin:15px 0 0">Total del periodo</p>
-      <div class="amount">$649.00</div>
-
-      <div class="row"><span>Titular</span><b>Juan Pérez López</b></div>
-      <div class="row"><span>Cta</span><b>0140204008</b></div>
-      <div class="row"><span>Emisión</span><b>01/09/2026</b></div>
-      <div class="row"><span>Pago</span><b>20/09/2026</b></div>
-      <div class="row"><span>Servicio</span><b>Internet 500 Mbps</b></div>
-    </div>
-
-    <div class="actions">
-      <button class="btn primary" onclick="window.open('estado-cuenta.pdf','_blank')">Ver estado de cuenta PDF</button>
-      <a class="btn secondary" href="estado-cuenta.pdf" download="estado-cuenta.pdf">Descargar estado de cuenta PDF</a>
-    </div>
-  </section>
-
-</div>
-
+<section id="bill" class="screen hidden">
+<button class="back" onclick="show('home')">‹ &nbsp;Regresar</button><h1 class="bill-title">Estado de cuenta</h1><p class="muted">Septiembre 2026</p>
+<div class="card"><span class="pill">PAGADO</span><p class="muted" style="margin:15px 0 0">Total del periodo</p><div class="amount">$649.00</div>
+<div class="row"><span>Titular</span><b>Juan Pérez López</b></div><div class="row"><span>Cta</span><b>0140204008</b></div><div class="row"><span>Emisión</span><b>01/09/2026</b></div><div class="row"><span>Pago</span><b>20/09/2026</b></div><div class="row"><span>Servicio</span><b>Internet 500 Mbps</b></div></div>
+<button class="btn primary" onclick="window.open('estado-cuenta.pdf','_blank')">Ver estado de cuenta PDF</button>
+<a class="btn secondary" href="estado-cuenta.pdf" download="estado-cuenta.pdf">Descargar estado de cuenta PDF</a>
+</section></div>
 <script>
-function show(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
-}
+function show(id){document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");window.scrollTo(0,0)}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
 </script>
-</body>
-</html>
+</body></html>
