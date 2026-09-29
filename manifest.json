@@ -1,12 +1,12 @@
 {
-  "name": "Proveedor Demo",
-  "short_name": "Proveedor Demo",
+  "name": "Portal de cuenta",
+  "short_name": "Portal de cuenta",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#c90055",
-  "description": "Prototipo de consulta de estado de cuenta.",
+  "theme_color": "#f7a3ad",
+  "description": "Prototipo de portal de consulta de estado de cuenta.",
   "icons": [
     {
       "src": "./icon-192.png",
