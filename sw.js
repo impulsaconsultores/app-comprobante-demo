@@ -1,4 +1,4 @@
-const CACHE = "portal-cuenta-v3";
+const CACHE = "portal-cuenta-v4";
 
 self.addEventListener("install", e => {
   e.waitUntil(
