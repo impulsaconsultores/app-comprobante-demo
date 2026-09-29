@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f7a3ad">
-  <meta name="description" content="Prototipo de portal de consulta de estado de cuenta">
+  <meta name="description" content="Portal de consulta de estado de cuenta">
   <link rel="manifest" href="manifest.json">
   <title>Portal de cuenta</title>
   <style>
@@ -58,21 +58,8 @@
       position:relative;
       z-index:2;
     }
-    .brand img{
-      width:58px;
-      height:58px;
-      object-fit:contain;
-      border-radius:16px;
-      background:#fff;
-      padding:6px;
-      box-shadow:0 8px 20px rgba(50,55,80,.12);
-    }
-    .prototype{
-      font-size:10px;
-      letter-spacing:.08em;
-      font-weight:800;
-      color:#5f5260;
-    }
+    .wordmark{font-size:30px;font-weight:900;letter-spacing:-.05em;color:#26324a}.wordmark span{color:#2386ee}
+    
     .screen{padding:0 22px 28px}.hidden{display:none!important}
     .login-card{
       position:relative;
@@ -246,7 +233,7 @@
   <section id="login" class="screen">
     <div class="top">
       <div class="brand">
-        <img src="icon-192.png" alt="Logo">
+        <div class="wordmark">Cuenta<span>.</span></div>
 
       </div>
     </div>
@@ -268,8 +255,8 @@
   <section id="home" class="screen hidden">
     <div class="top" style="margin:0 -22px;padding-left:22px;padding-right:22px">
       <div class="brand">
-        <img src="icon-192.png" alt="Logo">
-        <span class="prototype">PROTOTIPO</span>
+        <div class="wordmark">Cuenta<span>.</span></div>
+        
       </div>
     </div>
 
