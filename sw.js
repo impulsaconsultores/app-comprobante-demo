@@ -1,4 +1,4 @@
-const CACHE="portal-cuenta-v10";
+const CACHE="portal-cuenta-v11";
 self.addEventListener("install",e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll([
